@@ -99,9 +99,3 @@ def train(alpha, A0, Y, L, weights, biases, epochs=10000):
             weights[i - 1] = weights[i - 1] - alpha * dcdW[i]
             biases[i - 1] = biases[i - 1] - alpha * dcdB[i]
     return weights, biases, costs
-
-alpha = 0.01
-epochs = 10000
-A0, Y = prepare_data()
-weights, biases, costs = train(alpha, A0, Y, L, weights, biases, epochs)
-print(costs[-1])
