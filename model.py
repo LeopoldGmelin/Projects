@@ -91,14 +91,10 @@ def train(alpha, A0, Y, L, weights, biases, epochs=10000):
     costs = np.zeros(epochs)
     m = Y.shape[1]
     for epoch in range(epochs):
-        # Feedforward
         A, Z = feed_forward_numba(A0, weights, biases, L)
         y_hat = A[L]
-        # Kostenberechnung
         costs[epoch] = (1/m) * np.sum(-Y * np.log(y_hat) - (1 - Y) * np.log(1 - y_hat))
-        # Backpropagation
         dcdW, dcdB, dcdZ = backpropagation(A, Z, Y, L, weights, m)
-        # Parameter-Update
         for i in range(1, L + 1):
             weights[i - 1] = weights[i - 1] - alpha * dcdW[i]
             biases[i - 1] = biases[i - 1] - alpha * dcdB[i]
@@ -108,4 +104,4 @@ alpha = 0.01
 epochs = 10000
 A0, Y = prepare_data()
 weights, biases, costs = train(alpha, A0, Y, L, weights, biases, epochs)
-print("Training abgeschlossen. Letzter Kostenwert:", costs[-1])
+print(costs[-1])
